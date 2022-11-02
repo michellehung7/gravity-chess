@@ -17,6 +17,11 @@ function loadFromServer(gameData) {
     console.log("Data loaded from server.");
     updateBoard();
 }
+
+function back() {
+    loadState(gameStates.length - 2);
+}
+
 function loadGameRecord() {
     console.log("Loading game record!");
     let sections = gameRecord.split(". ");
