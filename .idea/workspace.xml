@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0b71a1cb-5798-494a-b089-c18ca2ed252e" name="Default Changelist" comment="Fixes #4.">
+    <list default="true" id="0b71a1cb-5798-494a-b089-c18ca2ed252e" name="Default Changelist" comment="less verbose">
+      <change afterPath="$PROJECT_DIR$/rust-ai-simple.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rust-ai.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ai-simple.js" beforeDir="false" afterPath="$PROJECT_DIR$/ai-simple.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simple.js" beforeDir="false" afterPath="$PROJECT_DIR$/simple.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +56,9 @@
         <option value="$PROJECT_DIR$/ai-game.js" />
       </list>
     </option>
+  </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="hqvra5ow" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -105,15 +112,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/dyusha/fun_things/gravity-chess&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/home/dyusha/fun_things/gravity-chess",
+    "settings.editor.selected.configurable": "Debugger_Data_Views_Java"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -127,6 +135,9 @@
     </key>
   </component>
   <component name="RunManager" selected="JavaScript Debug.index.html">
+    <configuration name="ai.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/gravity-chess/ai.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
     <configuration name="game_index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/gravity-chess/old/game_index.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
@@ -136,19 +147,16 @@
     <configuration name="multiplayer.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/gravity-chess/old/multiplayer.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
-    <configuration name="test.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/gravity-chess/test.html" useBuiltInWebServerPort="true">
-      <method v="2" />
-    </configuration>
-    <configuration name="theory.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/gravity-chess/theory.html" useBuiltInWebServerPort="true">
+    <configuration name="puzzle-rush.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/gravity-chess/puzzle-rush.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="JavaScript Debug.index.html" />
+        <item itemvalue="JavaScript Debug.puzzle-rush.html" />
+        <item itemvalue="JavaScript Debug.ai.html" />
         <item itemvalue="JavaScript Debug.game_index.html" />
         <item itemvalue="JavaScript Debug.multiplayer.html" />
-        <item itemvalue="JavaScript Debug.test.html" />
-        <item itemvalue="JavaScript Debug.theory.html" />
       </list>
     </recent_temporary>
   </component>
@@ -182,6 +190,16 @@
       <workItem from="1662499059068" duration="168000" />
       <workItem from="1665444917042" duration="3168000" />
       <workItem from="1666385734500" duration="3032000" />
+      <workItem from="1670559630403" duration="2808000" />
+      <workItem from="1670735386425" duration="8000" />
+      <workItem from="1670735454873" duration="8707000" />
+      <workItem from="1670778062393" duration="10211000" />
+      <workItem from="1671346357791" duration="720000" />
+      <workItem from="1671761588115" duration="19000" />
+      <workItem from="1671763355223" duration="599000" />
+      <workItem from="1671849726952" duration="5477000" />
+      <workItem from="1675233790035" duration="14000" />
+      <workItem from="1675640391960" duration="2957000" />
     </task>
     <task id="LOCAL-00001" summary="Added proper move recording to the normal game">
       <created>1657398231193</created>
@@ -344,7 +362,105 @@
       <option name="project" value="LOCAL" />
       <updated>1667323201921</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Fixes #5.">
+      <created>1667323836584</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1667323836584</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Fixes several casting issues, including fixing #12.">
+      <created>1670560452384</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1670560452384</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Fixes #3.">
+      <created>1670561834414</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1670561834414</updated>
+    </task>
+    <task id="LOCAL-00027" summary="added game state to game over detection">
+      <created>1670736647281</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1670736647281</updated>
+    </task>
+    <task id="LOCAL-00028" summary="some ai stuff">
+      <created>1670743230468</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1670743230468</updated>
+    </task>
+    <task id="LOCAL-00029" summary="working AI!">
+      <created>1670781491350</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1670781491350</updated>
+    </task>
+    <task id="LOCAL-00030" summary="options">
+      <created>1670781941445</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1670781941445</updated>
+    </task>
+    <task id="LOCAL-00031" summary="colorinh">
+      <created>1670782465300</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1670782465300</updated>
+    </task>
+    <task id="LOCAL-00032" summary="more eval improvements">
+      <created>1670784566684</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1670784566684</updated>
+    </task>
+    <task id="LOCAL-00033" summary="more eval improvements">
+      <created>1670784613750</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1670784613750</updated>
+    </task>
+    <task id="LOCAL-00034" summary="improvements">
+      <created>1670786755332</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1670786755332</updated>
+    </task>
+    <task id="LOCAL-00035" summary="added live game evaluations">
+      <created>1670802143043</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1670802143043</updated>
+    </task>
+    <task id="LOCAL-00036" summary="added puzzle rush">
+      <created>1671856269594</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1671856269594</updated>
+    </task>
+    <task id="LOCAL-00037" summary="less verbose">
+      <created>1671856357879</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1671856357879</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -399,18 +515,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added proper move recording to the normal game" />
-    <MESSAGE value="refactor code" />
-    <MESSAGE value="WOOOOOOOOOOOO!" />
-    <MESSAGE value="theory is working" />
-    <MESSAGE value="theory is working!!" />
-    <MESSAGE value="multiplauyer" />
-    <MESSAGE value="works with refreshes now!!!" />
-    <MESSAGE value="fix some multiplayer bugs" />
-    <MESSAGE value="rewritten using gamestates" />
-    <MESSAGE value="working legal moves with lookahead??" />
-    <MESSAGE value="fixed illegal double pawn push through piece" />
-    <MESSAGE value="added fixed legal move highlighting to multiplayer" />
     <MESSAGE value="ender's game" />
     <MESSAGE value="fixed promotion" />
     <MESSAGE value="implemented grav loading" />
@@ -422,7 +526,21 @@
     <MESSAGE value="no more black castling" />
     <MESSAGE value="fixed castling issue" />
     <MESSAGE value="Fixes #4." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixes #4." />
+    <MESSAGE value="Fixes #5." />
+    <MESSAGE value="Fixes several casting issues, including fixing #12." />
+    <MESSAGE value="Fixes #3." />
+    <MESSAGE value="added game state to game over detection" />
+    <MESSAGE value="some ai stuff" />
+    <MESSAGE value="working AI!" />
+    <MESSAGE value="options" />
+    <MESSAGE value="colorinh" />
+    <MESSAGE value="Improved evaluation function" />
+    <MESSAGE value="more eval improvements" />
+    <MESSAGE value="improvements" />
+    <MESSAGE value="added live game evaluations" />
+    <MESSAGE value="added puzzle rush" />
+    <MESSAGE value="less verbose" />
+    <option name="LAST_COMMIT_MESSAGE" value="less verbose" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -484,32 +602,55 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/game-base.js</url>
-          <line>173</line>
+          <line>210</line>
           <option name="timeStamp" value="47" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
+        <line-breakpoint type="javascript">
           <url>file://$PROJECT_DIR$/game-base.js</url>
-          <line>142</line>
+          <line>179</line>
           <option name="timeStamp" value="48" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/game-base.js</url>
-          <line>854</line>
-          <option name="timeStamp" value="53" />
+          <line>145</line>
+          <option name="timeStamp" value="58" />
+        </line-breakpoint>
+        <line-breakpoint type="javascript">
+          <url>file://$PROJECT_DIR$/game-base.js</url>
+          <line>1267</line>
+          <option name="timeStamp" value="62" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/simple.js</url>
-          <line>119</line>
-          <option name="timeStamp" value="54" />
+          <url>file://$PROJECT_DIR$/ai-simple.js</url>
+          <line>171</line>
+          <option name="timeStamp" value="72" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/game-base.js</url>
-          <line>841</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="56" />
+          <line>968</line>
+          <option name="timeStamp" value="73" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/ai-simple.js</url>
+          <line>254</line>
+          <option name="timeStamp" value="77" />
+        </line-breakpoint>
+        <line-breakpoint type="javascript">
+          <url>file://$PROJECT_DIR$/ai-simple.js</url>
+          <line>147</line>
+          <option name="timeStamp" value="78" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/puzzle-rush.js</url>
+          <line>112</line>
+          <option name="timeStamp" value="80" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/chess_pieces/PNGs/no_shadow/1x/b_bishop_1x_ns.png">

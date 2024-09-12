@@ -45,7 +45,32 @@ class Piece {
         this.col = col;
         this.type = type;
         this.color = color;
+        this.view = this.toString();
     }
+
+    toString() {
+        let s = "";
+        if (this.type === PAWN) {
+            s += "P";
+        } else if (this.type === KNIGHT) {
+            s += "N";
+        } else if (this.type === BISHOP) {
+            s += "B";
+        } else if (this.type === ROOK) {
+            s += "R";
+        } else if (this.type === QUEEN) {
+            s += "Q";
+        } else if (this.type === KING) {
+            s += "K";
+        }
+        s += ["h", "g", "f", "e", "d", "c", "b", "a"][this.col];
+        s += (this.row - -1);
+        if (this.color === 1) {
+            s = s.toLowerCase();
+        }
+        return s;
+    }
+
 }
 
 class GameState {
@@ -77,6 +102,8 @@ class GameState {
             if (tryPiece.row === piece.row && tryPiece.col === piece.col && tryPiece.type === piece.type) {
                 tryPiece.row = toRow;
                 tryPiece.col = toCol;
+
+                return tryPiece;
             }
         }
     }
@@ -111,19 +138,21 @@ class GameState {
 
         // piece.row = toRow;
         // piece.col = toCol;
-        this.movePieceTo(piece, toRow, toCol);
+        piece = this.movePieceTo(piece, toRow, toCol);
 
         // Check for castling
         // Long
         if (piece.type === KING && piece.col - oldCol === 2) {
-            let searchRook = new Piece(7, 0, ROOK, piece.color);
-            this.movePieceTo(searchRook, 0, 4);
+            let rookPosition = getRightRookPosition(this.pieces);
+            let searchRook = getPieceOn(rookPosition[0], rookPosition[1], this.pieces);
+            this.movePieceTo(searchRook, rookPosition[0], rookPosition[1] - 3);
             special = "0-0-0";
         }
         // Short
         if (piece.type === KING && piece.col - oldCol === -2) {
-            let searchRook = new Piece(0, 0, ROOK, piece.color);
-            this.movePieceTo(searchRook, 0, 2);
+            let rookPosition = getLeftRookPosition(this.pieces);
+            let searchRook = getPieceOn(rookPosition[0], rookPosition[1], this.pieces);
+            this.movePieceTo(searchRook, rookPosition[0], rookPosition[1] + 2);
             special = "0-0";
         }
 
@@ -140,7 +169,13 @@ class GameState {
 
         // Check if the piece is a promoted pawn
         if (piece.color === 0 && piece.row === 7 && piece.type === PAWN || piece.color === 1 && piece.row === 0 && piece.type === PAWN) {
-            piece.type = askForPromotion();
+            // If we're in the real game, ask the player for a promotion.
+            // Otherwise, we're in a simulation, so just assume that we always promote to a queen.
+            if (this === globalGameState) {
+                piece.type = askForPromotion();
+            } else {
+                piece.type = QUEEN;
+            }
             if (numPieces <= this.pieces.length) {
                 special = getCoordsName(piece.row, piece.col) + "=" + getPieceName(piece, 0, 0).substring(0, 1);
             } else {
@@ -826,25 +861,35 @@ function getLegalMoves(piece, gamestate, simulated = false) {
 
         // Castling
 
-        if (piece.color !== 1) {
-            // Long castling
-            if (getPieceOn(row, col + 1, pieces) === null && getPieceOn(row, col + 2, pieces) === null && getPieceOn(row, col + 3, pieces) === null && gamestate.longCastlingAllowed) {
-                // Check whether rook can move right
-                let rookPos = getRightRookPosition(pieces);
+        let castlingValid = false;
 
-                if (rookPos[0] !== -1 && getPieceOn(rookPos[0], rookPos[1] - 1, pieces) === null && getPieceOn(rookPos[0], rookPos[1] - 2, pieces) === null && getPieceOn(rookPos[0], rookPos[1] - 3, pieces) === null) {
-                    legalMoves.push([row, col + 2]);
+        if (simulated) {
+            castlingValid = true;
+        } else {
+            castlingValid = !inCheck(piece, gamestate)
+        }
+
+        if (castlingValid) {
+            if (piece.color !== 1) {
+                // Long castling
+                if (getPieceOn(row, col + 1, pieces) === null && getPieceOn(row, col + 2, pieces) === null && getPieceOn(row, col + 3, pieces) === null && gamestate.longCastlingAllowed) {
+                    // Check whether rook can move right
+                    let rookPos = getRightRookPosition(pieces);
+
+                    if (rookPos[0] !== -1 && getPieceOn(rookPos[0], rookPos[1] - 1, pieces) === null && getPieceOn(rookPos[0], rookPos[1] - 2, pieces) === null && getPieceOn(rookPos[0], rookPos[1] - 3, pieces) === null) {
+                        legalMoves.push([row, col + 2]);
+                    }
                 }
-            }
 
-            // Short castling
-            if (getPieceOn(row, col - 1, pieces) === null && getPieceOn(row, col - 2, pieces) === null && gamestate.shortCastlingAllowed) {
-                let rookPos = getLeftRookPosition(pieces);
+                // Short castling
+                if (getPieceOn(row, col - 1, pieces) === null && getPieceOn(row, col - 2, pieces) === null && gamestate.shortCastlingAllowed) {
+                    let rookPos = getLeftRookPosition(pieces);
 
-                console.log("Rook position:" + rookPos);
+                    // console.log("Rook position:" + rookPos);
 
-                if (rookPos[0] !== -1 && getPieceOn(rookPos[0], rookPos[1] + 1, pieces) === null && getPieceOn(rookPos[0], rookPos[1] + 2, pieces) === null) {
-                    legalMoves.push([row, col - 2]);
+                    if (rookPos[0] !== -1 && getPieceOn(rookPos[0], rookPos[1] + 1, pieces) === null && getPieceOn(rookPos[0], rookPos[1] + 2, pieces) === null) {
+                        legalMoves.push([row, col - 2]);
+                    }
                 }
             }
         }
@@ -1126,12 +1171,14 @@ function recordMove(selectedPiece, row, col, capture, oldCol, oldRow, special) {
         move++;
     }
 
-    let winner = gameOver();
+    let winner = gameOver(globalGameState);
 
     if (winner === 1) {
-        currentMoveRecord += " 0–1"
+        currentMoveRecord = currentMoveRecord.slice(0, -1);
+        currentMoveRecord += "# <span style=\"white-space: nowrap\">0–1</span>"
     } else if (winner === 0) {
-        currentMoveRecord += " 1–0"
+        currentMoveRecord = currentMoveRecord.slice(0, -1);
+        currentMoveRecord += "# <span style=\"white-space: nowrap\">1–0</span>"
     }
 
     gameRecord += currentMoveRecord;
@@ -1158,23 +1205,26 @@ function updateOpeningDiv(openingName) {
     }
 }
 
-function gameOver() {
+function gameOver(gamestate) {
     /**
      * Returns the loser
      * @type {number}
      */
 
-    let numKings = 0;
-    let winner = -1;
-
-    for (let piece of globalGameState.pieces) {
-        if (piece.type === KING) {
-            numKings++;
-            winner = piece.color;
+    let numLegalMoves = 0;
+    for (let piece of gamestate.pieces) {
+        if (piece.color === 1 - turn) {
+            // Sooo sketchy lol
+            turn = 1 - turn;
+            let legalMoves = getLegalMoves(piece, gamestate)
+            turn = 1 - turn;
+            numLegalMoves += legalMoves.length;
         }
     }
 
-    return numKings === 2 ? -1 : winner;
+    // console.log(numLegalMoves);
+    // console.log("");
+    if (numLegalMoves === 0) return turn;
 }
 
 function getPieceName(piece, capture, oldCol, oldRow) {

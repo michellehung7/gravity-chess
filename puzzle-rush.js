@@ -1,5 +1,7 @@
 let gameStates = Array();
 let gameRecords = Array();
+let successes = 0;
+let total = 0;
 
 canvas.addEventListener('mousedown', function (e) {
     let [x, y] = getCursorPosition(canvas, e);
@@ -35,6 +37,17 @@ canvas.addEventListener('mousedown', function (e) {
 
             recordMove(selectedPiece, row, col, capture, oldCol, oldRow, special);
 
+            total++;
+            if ([0, 1].indexOf(gameOver(globalGameState)) !== -1) {
+                successes++;
+                alert("SUCCESS! Current stats: " + successes + "/" + total);
+            } else {
+                alert("YOU FAILED! Current stats: " + successes + "/" + total);
+            }
+            document.getElementById("canvas-wrapper").style.visibility = "hidden";
+            begin();
+
+
             turn = 1 - turn;
             gameStates.push(structuredClone(globalGameState));
             gameRecords.push(structuredClone(gameRecord));
@@ -47,18 +60,99 @@ canvas.addEventListener('mousedown', function (e) {
     updateBoard(selectedPiece);
 });
 
+function getRandomPiece(gamestate, color) {
+    for (const piece of structuredClone(gamestate.pieces).map(value => ({value, sort: Math.random()}))
+        .sort((a, b) => a.sort - b.sort)
+        .map(({value}) => value)) {
+        if (piece.color === color && getLegalMoves(piece, gamestate, true).length > 0) {
+            return piece;
+        }
+    }
+}
+
+function generatePuzzle() {
+    back();
+    // Nasty hack to figure out which turn to set
+    if (gameRecord.split(". ").slice(-1)[0].split(" ").length === 3) {
+        turn = 1;
+    } else {
+        turn = 0;
+    }
+    document.getElementById("canvas-wrapper").style.visibility = "visible";
+}
+
+function runTurn() {
+    let pieceHasMoves = false;
+    let potentialMoves = [];
+    let selectedPiece;
+
+    while (!pieceHasMoves) {
+        selectedPiece = getRandomPiece(globalGameState, turn);
+
+        potentialMoves = getLegalMoves(selectedPiece, globalGameState);
+
+        if (potentialMoves.length > 0) {
+            pieceHasMoves = true;
+        }
+    }
+
+    // console.log("Potential moves: ")
+    // console.log(potentialMoves)
+    let chosenMove = _.sample(potentialMoves);
+    // console.log("Chose move:")
+    // console.log(chosenMove)
+
+    let [capture, oldCol, oldRow, special, newPieces] = globalGameState.movePiece(selectedPiece, chosenMove[0], chosenMove[1]);
+    globalGameState.pieces = newPieces;
+
+    globalGameState.updateGravity();
+
+    recordMove(selectedPiece, chosenMove[0], chosenMove[1], capture, oldCol, oldRow, special);
+
+    if (gameRecords.length > 150) {
+        gameRecords = [];
+        gameStates = [];
+        globalGameState = initGameState();
+    }
+
+    gameStates.push(structuredClone(globalGameState));
+    gameRecords.push(structuredClone(gameRecord));
+
+    if ([0, 1].indexOf(gameOver(globalGameState)) !== -1) {
+        console.log("Correct answer: " + gameRecord);
+        ct();
+        generatePuzzle();
+    } else {
+        setTimeout(runTurn, 1);
+    }
+
+    turn = 1 - turn;
+
+    drawBoard();
+    updateBoard(selectedPiece);
+}
+
+function ct() {
+    turn = 1 - turn;
+}
+
+function begin() {
+    globalGameState = initGameState();
+    runTurn();
+}
+
 function loadGameRecord() {
-    console.log("Loading game record!");
+    // console.log("Loading game record!");
     let sections = gameRecord.split(". ");
     document.getElementById("game-record-flex").innerHTML = "";
     for (let i = 1; i < sections.length; i++) {
-        console.log("Looking at ")
+        // console.log("Looking at ")
         let plies = sections[i].split(" ");
         for (let j = 0; j < Math.min(plies.length, 2); j++) {
             if (plies[j].length === 0) {
                 continue;
             }
-            console.log("Loading ply " + plies[j] + ".");
+            // console.log("Loading ply " + plies[j] + ".");
             let div = document.createElement("div");
             div.className = "move-record";
             if (j === 0) {
@@ -109,7 +203,7 @@ for (let pair of queryString.entries()) {
 
 // Custom game pieces
 function createPiecesFromFen(fen) {
-    console.log("Creating!");
+    // console.log("Creating!");
     let pieces = [];
 
     let row = 0;
@@ -158,7 +252,7 @@ function createPiecesFromFen(fen) {
     return pieces;
 }
 
-function getGFEN() {
+function getFEN() {
     let fen = "";
     let counter = 0;
 
@@ -212,32 +306,4 @@ function getGFEN() {
     }
 
     return fen.substring(0, fen.length - 1);
-}
-
-function getFEN() {
-    let piecesFen = [...getGFEN()].reverse().join("");
-
-    let activeColor = turn === 0 ? 'w' : 'b';
-
-    let castlingData = "";
-    if (globalGameState.shortCastlingAllowed) {
-        castlingData += "K";
-    }
-    if (globalGameState.longCastlingAllowed) {
-        castlingData += "Q";
-    }
-    if (castlingData.length === 0) {
-        castlingData = "-";
-    }
-
-    let enPassantData = "-";
-    if (globalGameState.enPassantAllowed) {
-        enPassantData = getCoordsName(globalGameState.enPassantTargetRow, globalGameState.enPassantTargetCol);
-    }
-
-    let halfClock = 0;
-
-    let fullMove = move;
-
-    return piecesFen + " " + activeColor + " " + castlingData + " " + enPassantData + " " + halfClock + " " + fullMove;
 }

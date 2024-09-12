@@ -161,7 +161,7 @@
                     <div class="number">7</div>
                     <div class="number">8</div>
                 </div>
-                <div id="canvas-wrapper">
+                <div id="canvas-wrapper" style="visibility: hidden;">
                     <canvas width="800" height="800">
                         An alternative text describing what your canvas displays.
                     </canvas>
@@ -170,6 +170,8 @@
         </div>
         <div id="righteron">
             <p id="opening-name"></p>
+            <button onclick="begin()">Begin</button>
+            <br/><br/>
             <button onclick="back()">Undo</button>
             <br/><br/>
             <button onclick="globalGameState.setGravityStyle(parseInt(window.prompt('Which gravity style do you want?\n(101 - normal, 102 - ender, 103 - left, 104 - right, 105 - alt, 106 - hokey)', '101')))">
@@ -177,8 +179,6 @@
             </button>
             <br><br>
             <button onclick="copyTextToClipboard(gameRecord);">Copy game</button>
-            <br/><br/>
-            <button onclick="copyTextToClipboard(getGFEN());">Copy gFEN</button>
             <br/><br/>
             <button onclick="copyTextToClipboard(getFEN());">Copy FEN</button>
             <br/>
@@ -231,6 +231,6 @@
 <script src="utils.js"></script>
 <script src="load.js"></script>
 <script src="game-base.js"></script>
-<script src="simple.js"></script>
+<script src="puzzle-rush.js"></script>
 </body>
 </html>
